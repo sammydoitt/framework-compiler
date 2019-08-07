@@ -60,6 +60,15 @@ router.get('/d', function(req, res, next){
     res.send(result)
   });
 
-
+  router.get('/e', function(req, res, next){
+    var sass = require('node-sass')
+    sass.render({
+      file: './framework/scss/theme.scss',
+      outputStyle: 'compressed'
+    }, function(err, result) {
+      console.log(err)
+      res.send(result.css)
+    });
+  })
 
 module.exports = router;
