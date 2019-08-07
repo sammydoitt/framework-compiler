@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Expresss' });
 });
 
+/* Test SCSS string with print to console */
 var a =  function (req, res, next) {
   var Sass = require('sass.js');
   var scss = '$someVar: 123px; .some-selector { width: $someVar; }';
@@ -15,66 +16,50 @@ var a =  function (req, res, next) {
   });
   next()
 }
-
 router.get('/a', [a], function(req, res, next){
   res.send('Hello from A')
 })
 
-var b =  function (req, res, next) {
-
-  // sass.listFiles(function callback(list) {
-  //   // (array) list contains the paths of all registered files
-  //   console.log(list)
-  // });
-  // sass.readFile('theme.scss', function callback(content) {
-  //   console.log('scss: ' + content)
-  //   // (string) content is the file's content,
-  //   //   `undefined` when the read failed
-  // });
-  // sass.compileFile('theme.scss', function callback(result) {
-  //   console.log('css: ' + result)
-  // })
-
-  next()
-}
-
-router.get('/b', [b], function(req, res, next){
+/* compile 2 files with @import. not async. weird results */
+router.get('/b', function(req, res, next){
   var sass = require('sass.js');
   var fs = require('fs');
-  fs.readFile('sass/theme.scss', 'utf8', function(err, data) {
+  fs.readFile('scss/theme.scss', 'utf8', function(err, data) {
       if (err) throw err;
       sass.writeFile({'theme.scss': data})
-      fs.readFile('sass/_test-import.scss', 'utf8', function(err, data) {
-          if (err) throw err;
-          sass.writeFile({'_test-import.scss': data})
-          sass.compileFile('@import "theme"; @import "test-imports"', function callback(result) {
-            console.log(result);
-            res.send(result['text'])
-          })
     })
+  fs.readFile('scss/_test-import.scss', 'utf8', function(err, data) {
+    if (err) throw err;
+    sass.writeFile({'_test-import.scss': data})
+  })
+  sass.compileFile('theme.scss', function callback(result) {
+    console.log(result);
+    res.send(result['text'])
+  })
 })
-})
 
-var c =  function (req, res, next) {
-
-  next()
-}
-
-router.get('/c', [c], function(req, res, next){
-  var sass = require('sass.js');
-  var fs = require('fs');
-  var scss = ''
-  fs.readFile(['sass/theme.scss', 'sass/_test-import.scss'], 'utf8', function(err, data) {
-      if (err) throw err;
-      console.log(data)
-      sass.writeFile({'theme.scss': data}, (success)=>{
-        if (success) {
-          sass.compileFile('theme.scss', function callback(result) {
-            res.send(result['text'])
-          })
-        }
-      })
+router.get('/c', function(req, res, next){
+  var sass = require('node-sass')
+  sass.render({
+    file: './scss/theme.scss',
+    outputStyle: 'nested'
+  }, function(err, result) {
+    console.log(err)
+    console.log(result.css)
+    res.send(result)
   });
 })
+
+router.get('/d', function(req, res, next){
+  var sass = require('node-sass')
+  var result = sass.renderSync({
+    file: './scss/theme.scss',
+    outputStyle: 'nested',
+  })
+    console.log(result.css.toString());
+    res.send(result)
+  });
+
+
 
 module.exports = router;
