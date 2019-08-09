@@ -3,23 +3,23 @@
 <form method="POST" action="/compiler">
   <div class="form-group">
     <label for="primary">Primary</label>
-    <input type="text" class="form-control" id="primary" name="primary" aria-describedby="primary" placeholder="Enter Primary" >
+    <input type="text" class="form-control" id="primary" name="primary" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" aria-describedby="primary" placeholder="Enter Primary" >
   </div>
   <div class="form-group">
     <label for="secondary">Secondary</label>
-    <input type="text" class="form-control" id="secondary" name="secondary" aria-describedby="secondary" placeholder="Enter Secondary" >
+    <input type="text" class="form-control" id="secondary" name="secondary" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" aria-describedby="secondary" placeholder="Enter Secondary" >
   </div>
   <div class="form-group">
     <label for="info">Info</label>
-    <input type="text" class="form-control" id="info" name="info" aria-describedby="info" placeholder="Enter Info" >
+    <input type="text" class="form-control" id="info" name="info" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" aria-describedby="info" placeholder="Enter Info" >
   </div>
   <div class="form-group">
     <label for="light">Light</label>
-    <input type="text" class="form-control" id="light" name="light" aria-describedby="light" placeholder="Enter Light" >
+    <input type="text" class="form-control" id="light" name="light" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" aria-describedby="light" placeholder="Enter Light" >
   </div>
   <div class="form-group">
     <label for="dark">Dark</label>
-    <input type="text" class="form-control" id="dark" name="dark" aria-describedby="dark" placeholder="Enter Dark" >
+    <input type="text" class="form-control" id="dark" name="dark" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" aria-describedby="dark" placeholder="Enter Dark" >
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
