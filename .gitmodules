@@ -1,0 +1,3 @@
+[submodule "public/nyc-core-framework"]
+	path = public/nyc-core-framework
+	url = https://github.com/CityOfNewYork/nyc-core-framework.git
