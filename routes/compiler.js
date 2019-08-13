@@ -23,7 +23,7 @@ function compileInMemory(req, res, next){
   var dark = req.body.dark || "#0A1438"
   var light = req.body.light || "#e6ecf7"
 
-  var customVarsData = vars.replace("#181A7B", primary).replace("#3B6CF6", secondary).replace("#A513B6", info).replace("#0A1438", dark).replace("#e6ecf7", light)
+  var customVarsData = vars.replace((/(?<=\$primary: )......./gm), primary).replace((/(?<=\$secondary: )......./gm), secondary).replace((/(?<=\$info: )......./gm), info).replace((/(?<=\$dark: )......./gm), dark).replace((/(?<=\$light: )......./gm), light)
 
   sass.render({
     file: './public/nyc-core-framework/scss/theme.scss',
