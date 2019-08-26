@@ -131,16 +131,21 @@
                     $light: #e6ecf7;
                     -->
 
-                    <form class="needs-validation my-3" novalidate method="POST" action="/compiler">
+                    <form class="needs-validation" novalidate method="POST" action="/compiler">
 
                         <div class="form-group">
 
                             <label for="color-primary">Primary Color
                                 <span class="fs-md text-danger" aria-hidden="true">*</span>
                             </label>
+                            <p class="invalid-feedback">
+                                <span class="fas fa-exclamation-triangle"></span>
+                                <span class="invalid-description">Color not properly formatted</span>
+                                <span class="invalid-instruction">Please input as a 3, 6, or 8 character hex color with a hash sign. (ie. #181A7B)</span>
+                            </p>
 
                             <div class="input-group" id="color-primary">
-                                <input type="text" id="primary-input" name="primary" class="form-control form-control-lg" value="#181A7B" onkeyup="coordinateColorChange(this)" />
+                                <input type="text" id="primary-input" name="primary" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}|[a-fA-F0-9]{8})$" class="form-control form-control-lg" value="#181A7B" onkeyup="coordinateColorChange(this)" />
                                 <div class="input-group-append">
                                     <div class="color-pickr-primary btn" style="background-color: #181A7B;"></div>
                                 </div>
@@ -153,9 +158,13 @@
                             <label for="color-secondary">Secondary Color
                                 <span class="fs-md text-danger" aria-hidden="true">*</span>
                             </label>
-
+                            <p class="invalid-feedback">
+                                <span class="fas fa-exclamation-triangle"></span>
+                                <span class="invalid-description">Color not properly formatted</span>
+                                <span class="invalid-instruction">Please input as a 3, 6, or 8 character hex color with a hash sign. (ie. #181A7B)</span>
+                            </p>
                             <div class="input-group" id="color-secondary">
-                                <input type="text" id="secondary-input" name="secondary" class="form-control form-control-lg" value="#3B6CF6" onkeyup="coordinateColorChange(this)" />
+                                <input type="text" id="secondary-input" name="secondary" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}|[a-fA-F0-9]{8})$" class="form-control form-control-lg" value="#3B6CF6" onkeyup="coordinateColorChange(this)" />
                                 <div class="input-group-append">
                                     <div class="color-pickr-secondary btn" style="background-color: #3B6CF6;"></div>
                                 </div>
@@ -168,9 +177,13 @@
                             <label for="color-info">Info Color
                                 <span class="fs-md text-danger" aria-hidden="true">*</span>
                             </label>
-
+                            <p class="invalid-feedback">
+                                <span class="fas fa-exclamation-triangle"></span>
+                                <span class="invalid-description">Color not properly formatted</span>
+                                <span class="invalid-instruction">Please input as a 3, 6, or 8 character hex color with a hash sign. (ie. #181A7B)</span>
+                            </p>
                             <div class="input-group" id="color-info">
-                                <input type="text" id="info-input" name="info" class="form-control form-control-lg" value="#A513B6" onkeyup="coordinateColorChange(this)" />
+                                <input type="text" id="info-input" name="info" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}|[a-fA-F0-9]{8})$" class="form-control form-control-lg" value="#A513B6" onkeyup="coordinateColorChange(this)" />
                                 <div class="input-group-append">
                                     <div class="color-pickr-info btn" style="background-color: #A513B6;"></div>
                                 </div>
@@ -183,9 +196,13 @@
                             <label for="color-dark">Dark Color
                                 <span class="fs-md text-danger" aria-hidden="true">*</span>
                             </label>
-
+                            <p class="invalid-feedback">
+                                <span class="fas fa-exclamation-triangle"></span>
+                                <span class="invalid-description">Color not properly formatted</span>
+                                <span class="invalid-instruction">Please input as a 3, 6, or 8 character hex color with a hash sign. (ie. #181A7B)</span>
+                            </p>
                             <div class="input-group" id="color-dark">
-                                <input type="text" id="dark-input" name="dark" class="form-control form-control-lg" value="#0A1438" onkeyup="coordinateColorChange(this)" />
+                                <input type="text" id="dark-input" name="dark" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}|[a-fA-F0-9]{8})$" class="form-control form-control-lg" value="#0A1438" onkeyup="coordinateColorChange(this)" />
                                 <div class="input-group-append">
                                     <div class="color-pickr-dark btn" style="background-color: #0A1438;"></div>
                                 </div>
@@ -198,9 +215,13 @@
                             <label for="color-light">Light Color
                                 <span class="fs-md text-danger" aria-hidden="true">*</span>
                             </label>
-
+                            <p class="invalid-feedback">
+                                <span class="fas fa-exclamation-triangle"></span>
+                                <span class="invalid-description">Color not properly formatted</span>
+                                <span class="invalid-instruction">Please input as a 3, 6, or 8 character hex color with a hash sign. (ie. #181A7B)</span>
+                            </p>
                             <div class="input-group" id="color-light">
-                                <input type="text" id="light-input" name="light" class="form-control form-control-lg" value="#e6ecf7" onkeyup="coordinateColorChange(this)" />
+                                <input type="text" id="light-input" name="light" pattern="^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3}|[a-fA-F0-9]{8})$" class="form-control form-control-lg" value="#e6ecf7" onkeyup="coordinateColorChange(this)" />
                                 <div class="input-group-append">
                                     <div class="color-pickr-light btn" style="background-color: #e6ecf7;"></div>
                                 </div>
@@ -284,6 +305,9 @@
 
     <!-- Pickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
+    <!-- Validation -->
+     <script src="./nyc-core-framework-website/js/validation.js"></script>
 
     <script>
 
