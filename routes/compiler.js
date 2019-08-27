@@ -14,7 +14,6 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res, next){
   compileInMemory(req, res, next)
 })
-
 function compileInMemory(req, res, next){
   console.log(req.body);
   var primary = req.body.primary || "#181A7B"
@@ -37,7 +36,7 @@ function compileInMemory(req, res, next){
     outputStyle: 'compressed',
   }, function(err, result) {
     try {
-      res.render('compiler', {title: "Compiled CSS", css: result.css.toString()})
+      res.json(result.css.toString())
     } catch (e) {
       console.log("err: " + err)
       res.render('compiler', {title: "Compiled CSS", css:err})

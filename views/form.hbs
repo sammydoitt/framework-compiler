@@ -131,7 +131,7 @@
                     $light: #e6ecf7;
                     -->
 
-                    <form class="needs-validation" novalidate method="POST" action="/compiler">
+                    <form class="needs-validation" novalidate onsubmit="submitForm()" actoion="/compiler">
 
                         <div class="form-group">
 
@@ -310,6 +310,39 @@
      <script src="./nyc-core-framework-website/js/validation.js"></script>
 
     <script>
+    //submit function
+    function submitForm(){
+      event.preventDefault()
+
+      var primary = document.getElementById("primary-input").value
+      var secondary = document.getElementById("secondary-input").value
+      var info = document.getElementById("info-input").value
+      var dark = document.getElementById("dark-input").value
+      var light = document.getElementById("light-input").value
+
+      var data = {"primary": primary, "secondary": secondary, "info": info, "dark": dark, "light": light}
+
+      return fetch('/compiler', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data),
+      })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+           var dataStr = "data:text/css;charset=utf-8," + encodeURIComponent(myJson);
+           var downloadAnchorNode = document.createElement('a');
+           downloadAnchorNode.setAttribute("href",     dataStr);
+           downloadAnchorNode.setAttribute("download", "theme.css");
+           document.body.appendChild(downloadAnchorNode); // required for firefox
+           downloadAnchorNode.click();
+           downloadAnchorNode.remove();
+      });
+    }
 
     function coordinateColorChange(event) {
       event.nextElementSibling.firstElementChild.style.backgroundColor = event.value
