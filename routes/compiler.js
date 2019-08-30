@@ -8,7 +8,7 @@ var sass = require('node-sass')
 var vars = fs.readFileSync('./public/nyc-core-framework/scss/_a-global-variables.scss', 'utf-8')
 
 router.get('/', function(req, res, next){
-  res.render('form')
+  res.send('Hi there, the app is working! This is an API for the NYC Core Framework Compiler. You can use this api by submitting a request with json object for {primary: (color hex code), secondary: (color hex code), info: (color hex code), dark:  (color hex code), light: (color hex code), compressed: (true or false)} to /compiler.');
 })
 
 router.post('/', function(req, res, next){
