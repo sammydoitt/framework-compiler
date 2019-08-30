@@ -21,8 +21,9 @@ function compileInMemory(req, res, next){
   var info = req.body.info || "#A513B6"
   var dark = req.body.dark || "#0A1438"
   var light = req.body.light || "#e6ecf7"
+  var compressed = req.body.compressed ? "compressed" : "expanded"
 
-  var customVarsData = vars.replace((/(?<=\$primary: )......./gm), primary).replace((/(?<=\$secondary: )......./gm), secondary).replace((/(?<=\$info: )......./gm), info).replace((/(?<=\$dark: )......./gm), dark).replace((/(?<=\$light: )......./gm), light)
+  var customVarsData = vars.replace((/(?<=\$primary: #)....../gm), primary).replace((/(?<=\$secondary: #)....../gm), secondary).replace((/(?<=\$info: #)....../gm), info).replace((/(?<=\$dark: #)....../gm), dark).replace((/(?<=\$light: #)....../gm), light)
 
   sass.render({
     file: './public/nyc-core-framework/scss/theme.scss',
@@ -33,13 +34,13 @@ function compileInMemory(req, res, next){
         done()
       }
     },
-    outputStyle: 'compressed',
+    outputStyle: compressed,
   }, function(err, result) {
     try {
       res.json(result.css.toString())
     } catch (e) {
       console.log("err: " + err)
-      res.render('compiler', {title: "Compiled CSS", css:err})
+      res.status('500').json(err.message)
     } finally {
     }
   });

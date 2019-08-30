@@ -23,8 +23,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// allow cors requests
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Headers', "*");
+  next();
+});
+
+
 app.use('/', indexRouter);
 app.use('/compiler', compilerRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
