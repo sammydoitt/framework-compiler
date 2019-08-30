@@ -6,16 +6,9 @@ The purpose of this application is to create a publicly accessible tool for down
 ## Getting Started
 1. clone the repository to a local directory using the ```git clone``` command.
 2. cd into the repository directroy and run ```npm install```.
-3. run ```set DEBUG=myapp:* & npm start``` to start the server.
-4. the application will run on localhost:3000, and the current routes are "/" for the index, and "/compiler" to reach the color customization form.
-5. On the form, enter valid color hex codes and submit the form to recieve the compiled CSS in the browser.
-
-## Roadmap
-1. HTML Color Picker
-2. Rounded Corners
-3. Select CSS packages
-4. Images
-5. Fonts
-6. And Beyond...
+3. in order to populate the public/nyc-core-framework files, you'll need to initialize and update the submodule. Run ```git submodule init``` and ```git submodule update```.
+3. run ```set DEBUG=framework-compiler:* & npm start``` to start the server.
+4. you can use this api by hitting the /compiler url with the following: 'primary', 'secondary', 'info', 'light', and 'dark' with valid color hex codes without the hash sign, and 'compressed' with either a true or false value.
+5. for troubleshooting purposes, the inputs received from the front end will be displayed in the console.
 
 Enjoy the app!
