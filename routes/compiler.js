@@ -7,29 +7,26 @@ var sass = require('node-sass')
 
 var vars = fs.readFileSync('./public/nyc-core-framework/scss/_a-global-variables.scss', 'utf-8')
 
-router.get('/', function(req, res, next){
-  res.send('Hi there, the app is working! This is an API for the NYC Core Framework Compiler. You can use this api by submitting a request with json object for {primary: (color hex code), secondary: (color hex code), info: (color hex code), dark:  (color hex code), light: (color hex code), compressed: (true or false)} to /compiler.');
-})
-
 router.post('/', function(req, res, next){
   compileInMemory(req, res, next)
 })
+
 function compileInMemory(req, res, next){
   console.log(req.body);
-  var primary = req.body.primary || "#181A7B"
-  var secondary = req.body.secondary || "#3B6CF6"
-  var info = req.body.info || "#A513B6"
-  var dark = req.body.dark || "#0A1438"
-  var light = req.body.light || "#e6ecf7"
-  var compressed = req.body.compressed ? "compressed" : "expanded"
+  var [primary, secondary, info, dark, light, compressed] = assignCustomValues(req)
 
-  var customVarsData = vars.replace((/(?<=\$primary: #)....../gm), primary).replace((/(?<=\$secondary: #)....../gm), secondary).replace((/(?<=\$info: #)....../gm), info).replace((/(?<=\$dark: #)....../gm), dark).replace((/(?<=\$light: #)....../gm), light)
+  var sassWithCustomValues = vars
+    .replace((/(?<=\$primary: #)....../gm), primary)
+    .replace((/(?<=\$secondary: #)....../gm), secondary)
+    .replace((/(?<=\$info: #)....../gm), info)
+    .replace((/(?<=\$dark: #)....../gm), dark)
+    .replace((/(?<=\$light: #)....../gm), light)
 
   sass.render({
     file: './public/nyc-core-framework/scss/theme.scss',
     importer: function(url, prev, done){
       if (url === "a-global-variables.scss") {
-        return {file: './public/nyc-core-framework/scss/_a-global-variables.scss', contents: customVarsData}
+        return {file: './public/nyc-core-framework/scss/_a-global-variables.scss', contents: sassWithCustomValues}
       } else {
         done()
       }
@@ -44,6 +41,20 @@ function compileInMemory(req, res, next){
     } finally {
     }
   });
+}
+
+const assignCustomValues = (req) => {
+  var body = req.body
+  var defaultColors = {primary: "181A7B", secondary: "3B6CF6", info: "A513B6", dark: "0A1438", light: "e6ecf7"}
+
+  var primary = body.primary || defaultColors.primary
+  var secondary = body.secondary || defaultColors.secondary
+  var info = body.info || defaultColors.info
+  var dark = body.dark || defaultColors.dark
+  var light = body.light || defaultColors.light
+  var compressed = body.compressed ? "compressed" : "expanded"
+
+  return [primary, secondary, info, dark, light, compressed]
 }
 
 module.exports = router;
