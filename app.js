@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 
 
 app.use('/', indexRouter);
-app.use('/compiler', compilerRouter);
+app.use('/api/v1', compilerRouter);
 
 
 // catch 404 and forward to error handler

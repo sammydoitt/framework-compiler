@@ -7,7 +7,7 @@ var sass = require('node-sass')
 
 var vars = fs.readFileSync('./public/nyc-core-framework/scss/_a-global-variables.scss', 'utf-8')
 
-router.post('/', function(req, res, next){
+router.post('/compile', function(req, res, next){
   compileInMemory(req, res, next)
 })
 
